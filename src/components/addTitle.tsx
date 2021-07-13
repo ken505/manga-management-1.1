@@ -4,25 +4,27 @@ import Image from "next/image";
 import add from "public/add.png";
 import { Fragment, useCallback, useState, VFC } from "react";
 import { client } from "src/libs/supabase";
+
 type props = {
   uuid: string;
   getTitleList: VoidFunction;
 };
+
 export const AddTitle: VFC<props> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
-  // ダイアログを開く
+
   const openModal = useCallback(() => {
     setIsOpen(true);
   }, []);
-  // ダイアログを閉じる
+
   const closeModal = useCallback(() => {
     setTitle("");
     setAuthor("");
     setIsOpen(false);
   }, []);
-  // 漫画タイトルの追加
+
   const handleAdd = useCallback(
     async (uuid: string) => {
       if (title == "") {
@@ -43,6 +45,7 @@ export const AddTitle: VFC<props> = (props) => {
     },
     [title, author, props, closeModal]
   );
+
   return (
     <>
       <div className="p-2 border cursor-pointer" onClick={openModal}>
@@ -51,6 +54,7 @@ export const AddTitle: VFC<props> = (props) => {
         </div>
         <div className="mt-2 text-center">ADD NEW</div>
       </div>
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -73,10 +77,7 @@ export const AddTitle: VFC<props> = (props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div
-                className="inline-block w-full max-w-md p-6 my-8
- overflow-hidden text-left align-middle transition-all transform border border-gray-300 shadow-xl bg-gray-50 rounded-xl"
-              >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform border border-gray-300 shadow-xl bg-gray-50 rounded-xl">
                 <Dialog.Title
                   as="h3"
                   className="text-2xl font-medium leading-6 text-center text-gray-900"
@@ -91,7 +92,7 @@ export const AddTitle: VFC<props> = (props) => {
                     onChange={(e) => {
                       return setTitle(e.target.value);
                     }}
-                  />{" "}
+                  />
                 </div>
                 <div className="grid grid-cols-4 gap-2 mt-4">
                   <div className="col-span-1 text-xl text-center">Author</div>
@@ -101,7 +102,7 @@ export const AddTitle: VFC<props> = (props) => {
                     onChange={(e) => {
                       return setAuthor(e.target.value);
                     }}
-                  />{" "}
+                  />
                 </div>
                 <div className="flex justify-center mt-4">
                   <div className="w-32 p-2">

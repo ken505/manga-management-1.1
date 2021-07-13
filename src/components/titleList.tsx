@@ -11,18 +11,20 @@ export type Title = {
   author: string;
   image_url: string;
 };
+
 type TitlesProps = {
   titles: Title[];
   uuid: string;
   getTitleList: VoidFunction;
   filterText: string;
 };
+
 export const TitleList = (props: TitlesProps) => {
-  // 漫画タイトルのフィルタリング
   const filteredTitle = props.titles.filter((title) => {
     let searchContent = title.title + " " + title.author;
     return searchContent.toLowerCase().includes(props.filterText.toLowerCase());
   });
+
   return (
     <div className="grid grid-cols-3 gap-2 m-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
       <AddTitle uuid={props.uuid} getTitleList={props.getTitleList} />
